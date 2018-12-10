@@ -13,6 +13,9 @@ import vip.itellyou.pojo.User;
 public interface UserService {
 	//处理注册的方法
 	public void register(User user) throws Exception;
-	//处理用户验证的方法
-	public void verify(User user) throws Exception;
+	//处理登录的方法：根据用户名和密码进行查询
+	//返回值是根据用户名和密码查询到的用户对象
+	public User verify(User user) throws Exception;
+	//根据用户id查找用户对象
+	public User getUser(int id) throws Exception;
 }

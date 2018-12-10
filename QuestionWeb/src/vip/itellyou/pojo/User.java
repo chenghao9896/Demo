@@ -9,10 +9,14 @@ package vip.itellyou.pojo;
  *
  */
 public class User {
-	//null表示没有值
+	public static int OFFLINE = 1;
+	public static int ONLINE = 2;
+	public static String SESSION_NAME = "CurrentUser";
+	//对于Long类型，null表示没有值
 	private Long id;
 	private String name;
 	private String pwd;
+	private String remember;
 	//1 不在线  2 在线
 	private int online;
 	
@@ -46,5 +50,11 @@ public class User {
 	}
 	public void setOnline(int online) {
 		this.online = online;
+	}
+	public String getRemember() {
+		return remember;
+	}
+	public void setRemember(String remember) {
+		this.remember = remember;
 	}
 }

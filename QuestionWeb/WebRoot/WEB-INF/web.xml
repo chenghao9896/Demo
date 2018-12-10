@@ -17,9 +17,14 @@
     <servlet-class>vip.itellyou.ui.servlet.DoLoginServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>ListServlet</servlet-name>
+    <servlet-class>vip.itellyou.ui.servlet.ListServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>VoteServlet</servlet-name>
     <servlet-class>vip.itellyou.ui.servlet.VoteServlet</servlet-class>
   </servlet>
+
   <servlet-mapping>
     <servlet-name>RegServlet</servlet-name>
     <url-pattern>/reg</url-pattern>
@@ -36,10 +41,15 @@
     <servlet-name>DoLoginServlet</servlet-name>
     <url-pattern>/doLogin</url-pattern>
   </servlet-mapping>
+    <servlet-mapping>
+    <servlet-name>ListServlet</servlet-name>
+    <url-pattern>/list</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>VoteServlet</servlet-name>
     <url-pattern>/vote</url-pattern>
   </servlet-mapping>
+
   <filter>
     <filter-name>meFilter</filter-name>
     <filter-class>vip.itellyou.ui.filter.MyExceptionFilter</filter-class>
@@ -61,8 +71,8 @@
     </init-param>
   </filter>
   <filter>
-  	<filter-name>loginFilter</filter-name>
-  	<filter-class>vip.itellyou.ui.filter.LoginFilter</filter-class>
+  	<filter-name>alFilter</filter-name>
+  	<filter-class>vip.itellyou.ui.filter.AutoLoginFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>meFilter</filter-name>
@@ -73,7 +83,7 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
   <filter-mapping>
-  	<filter-name>loginFilter</filter-name>
-  	<url-pattern>/vote</url-pattern>
+  	<filter-name>alFilter</filter-name>
+  	<url-pattern>/*</url-pattern>
   </filter-mapping>
 </web-app>

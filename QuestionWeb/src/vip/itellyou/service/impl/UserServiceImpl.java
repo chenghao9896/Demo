@@ -51,12 +51,14 @@ public class UserServiceImpl implements UserService {
 		
 	}
 	@Override
-	public void verify(User user) throws Exception {
-		//用户名不能重复，按照用户名查询
+	public User verify(User user) throws Exception {
+		//完成登录
 		//1 构造查询模型对象
 		UserQueryModel qm = new UserQueryModel();
 		qm.setName(user.getName());
+		qm.setPwd(user.getPwd());
 		List list = userDao.findByCondition(qm);
+		user = (User)list.get(0);
 		if(user.getName()==null || user.getName().trim().length()==0){
 			// 当用户名为null或者长度为0时抛出异常用户名不能为空
 			//用户操作不当=>数据回显：自定义异常类
@@ -65,16 +67,23 @@ public class UserServiceImpl implements UserService {
 		if(user.getPwd()==null || user.getPwd().trim().length()==0){
 			throw new RuleException("密码不能为空!");
 		}
-		if(list.size()>0){
-			User queryUser = new User();
-			queryUser = (User)list.get(0);
-			if(!user.getPwd().equals(queryUser.getPwd())){
-				throw new RuleException("密码错误!");
+		if(user.getOnline()==User.ONLINE){
+			throw new RuleException("用户已登录!");
+		}else {
+			if(list.size()==1){
+				user.setOnline(User.ONLINE);
+				userDao.update(user);
+				return user;	
+			}else{
+				throw new RuleException("用户名不存在或密码错误!");
 			}
-		}else{
-			throw new RuleException("用户名不存在!");
 		}
 		
+	}
+
+	@Override
+	public User getUser(int id) throws Exception {
+		return (User)userDao.findOne(id);
 	}
 
 }

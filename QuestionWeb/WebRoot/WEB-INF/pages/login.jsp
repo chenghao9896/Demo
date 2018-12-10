@@ -1,4 +1,13 @@
 <%@ page language="java" import="java.util.*,vip.itellyou.pojo.User" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!-- 
+	1、复制粘贴
+	2、改地址 href src action
+	3、改静态内容为动态
+	数据回显 user message
+ -->
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -49,7 +58,7 @@ window.onload = function(){
 					<dt>密　码：</dt>
 					<dd><input type="password" class="input-text" name="pwd"  value=""/></dd>
 					<dt></dt>
-					<dd><input type="checkbox"  name="remember"  value="1"/>10天内免登录</dd>
+					<dd><input type="checkbox"  name="remember"  value="1" <c:if test="${user.remember!=null }">checked="checked"</c:if>/>10天内免登录</dd>
 					<dt></dt>
 					<dd><input type="submit" class="input-button" name="submit" value="登录" /> <a href="${pageContext.request.contextPath}/reg">新用户注册</a></dd>
 				</dl>
