@@ -27,7 +27,7 @@ public class DoLoginServlet extends HttpServlet {
 		//实体类对象
 		User user = new User();
 		user.setName(name);
-		user.setPwd(Md5Class.stringToMd5(pwd));
+		user.setPwd(pwd);
 		user.setRemember(remember);
 		//2 创建业务逻辑对象，调用业务方法
 		try {

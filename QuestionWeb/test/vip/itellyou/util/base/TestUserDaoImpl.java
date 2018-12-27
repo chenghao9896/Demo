@@ -25,7 +25,7 @@ public class TestUserDaoImpl {
 		UserDaoImpl userDao = new UserDaoImpl();
 		//2 调用目标对象的目标方法，得到实际运行的结果
 		User user = new User();
-		user.setName("张三");
+		user.setName("chchchch");
 		user.setPwd("111111");
 		user.setOnline(1);
 		int actual = userDao.insert(user);
@@ -41,7 +41,7 @@ public class TestUserDaoImpl {
 		UserDaoImpl userDao = new UserDaoImpl();
 		//2 调用目标对象的目标方法，得到实际运行的结果
 		User user = new User();
-		user.setId(1l);
+		user.setId(18l);
 		user.setName("小华");
 		user.setPwd("123456");
 		user.setOnline(1);
@@ -55,7 +55,7 @@ public class TestUserDaoImpl {
 		//1 创建目标类的对象
 		UserDaoImpl userDao = new UserDaoImpl();
 		//2 调用目标对象的目标方法，得到实际运行的结果
-		int actual = userDao.delete(1);
+		int actual = userDao.delete(18);
 		//3 写下来预计的结果(人工按照功能计算)
 		int expected = 1;
 		//4 使用断言类的方法比较实际运行的结果和预计的结果
@@ -66,7 +66,7 @@ public class TestUserDaoImpl {
 	public void testFindAll() throws Exception {
 		UserDaoImpl userDao = new UserDaoImpl();
 		List list = userDao.findAll();
-		int expected = 1;
+		int expected = 9;
 		Assert.assertEquals(expected, list.size());
 	}
 	

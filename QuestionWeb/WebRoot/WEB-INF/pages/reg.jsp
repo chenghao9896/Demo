@@ -35,7 +35,7 @@
 				<dd><input type="submit" class="input-button" name="submit" value="" /></dd>
 			</dl>
 		</form>
-		<div class="error">${message}</div>
+		<div class="error"><font color="red">${message}</font></div>
 	</div>
 </div>
 <div id="footer" class="wrap">

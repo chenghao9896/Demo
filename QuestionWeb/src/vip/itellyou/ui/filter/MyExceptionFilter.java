@@ -16,7 +16,7 @@ import javax.servlet.ServletResponse;
 public class MyExceptionFilter implements Filter {
 	
 	private String errorPage;
-	private String fileName;
+//	private String fileName;
 	@Override
 	public void destroy() {
 		
@@ -30,17 +30,17 @@ public class MyExceptionFilter implements Filter {
 		} catch (Exception e) {
 			//记录日志 log4j
 			//跳转到错误处理界面
-			req.setAttribute("ex", e);
-			req.getRequestDispatcher(this.errorPage).forward(req, res);
+			e.printStackTrace();
+			req.getRequestDispatcher("/WEB-INF/pages" + this.errorPage).forward(req, res);
 		}
 
 	}
 
 	@Override
-	public void init(FilterConfig arg0) throws ServletException {
+	public void init(FilterConfig config) throws ServletException {
 		//初始化参数：错误处理页面的地址，日志文件的文件名
-		this.errorPage = arg0.getInitParameter(errorPage);
-		this.fileName = arg0.getInitParameter(fileName);
+		this.errorPage = config.getInitParameter("errorPage");
+//		this.fileName = config.getInitParameter(fileName);
 
 	}
 

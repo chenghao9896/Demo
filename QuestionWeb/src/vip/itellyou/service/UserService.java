@@ -18,4 +18,6 @@ public interface UserService {
 	public User verify(User user) throws Exception;
 	//根据用户id查找用户对象
 	public User getUser(int id) throws Exception;
+	//用户退出修改状态
+	public void setOnline(User user, boolean status);
 }

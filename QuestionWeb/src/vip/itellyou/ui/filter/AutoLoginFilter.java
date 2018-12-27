@@ -50,6 +50,7 @@ public class AutoLoginFilter implements Filter {
 							int id = Integer.parseInt(cookie.getValue());
 							UserService userservice = new UserServiceImpl();
 							User user = userservice.getUser(id);
+							userservice.setOnline(user, false);
 							session.setAttribute(User.SESSION_NAME, user);
 							break;
 						}  catch (Exception e) {

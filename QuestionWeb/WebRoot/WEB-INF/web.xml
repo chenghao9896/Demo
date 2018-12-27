@@ -24,6 +24,31 @@
     <servlet-name>VoteServlet</servlet-name>
     <servlet-class>vip.itellyou.ui.servlet.VoteServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>AddServlet</servlet-name>
+    <servlet-class>vip.itellyou.ui.servlet.AddServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DoAddServlet</servlet-name>
+    <servlet-class>vip.itellyou.ui.servlet.DoAddServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>DoVoteServlet</servlet-name>
+    <servlet-class>vip.itellyou.ui.servlet.DoVoteServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ModifyServlet</servlet-name>
+    <servlet-class>vip.itellyou.ui.servlet.ModifyServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>LogoutServlet</servlet-name>
+    <servlet-class>vip.itellyou.ui.servlet.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>SearchServlet</servlet-name>
+    <servlet-class>vip.itellyou.ui.servlet.SearchServlet</servlet-class>
+  </servlet>
+
 
   <servlet-mapping>
     <servlet-name>RegServlet</servlet-name>
@@ -41,25 +66,44 @@
     <servlet-name>DoLoginServlet</servlet-name>
     <url-pattern>/doLogin</url-pattern>
   </servlet-mapping>
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>ListServlet</servlet-name>
     <url-pattern>/list</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>VoteServlet</servlet-name>
-    <url-pattern>/vote</url-pattern>
+    <url-pattern>/m/vote</url-pattern>
   </servlet-mapping>
-
+  <servlet-mapping>
+    <servlet-name>AddServlet</servlet-name>
+    <url-pattern>/m/add</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DoAddServlet</servlet-name>
+    <url-pattern>/m/doAdd</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DoVoteServlet</servlet-name>
+    <url-pattern>/m/doVote</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ModifyServlet</servlet-name>
+    <url-pattern>/m/modify</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LogoutServlet</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SearchServlet</servlet-name>
+    <url-pattern>/search</url-pattern>
+  </servlet-mapping>
   <filter>
     <filter-name>meFilter</filter-name>
     <filter-class>vip.itellyou.ui.filter.MyExceptionFilter</filter-class>
     <init-param>
       <param-name>errorPage</param-name>
-      <param-value>error.jsp</param-value>
-    </init-param>
-    <init-param>
-      <param-name>fileName</param-name>
-      <param-value>log.txt</param-value>
+      <param-value>/500.jsp</param-value>
     </init-param>
   </filter>
   <filter>
@@ -71,8 +115,12 @@
     </init-param>
   </filter>
   <filter>
-  	<filter-name>alFilter</filter-name>
-  	<filter-class>vip.itellyou.ui.filter.AutoLoginFilter</filter-class>
+    <filter-name>alFilter</filter-name>
+    <filter-class>vip.itellyou.ui.filter.AutoLoginFilter</filter-class>
+  </filter>
+  <filter>
+     <filter-name>transFilter</filter-name>
+     <filter-class>vip.itellyou.ui.filter.TransFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>meFilter</filter-name>
@@ -83,7 +131,14 @@
     <url-pattern>/*</url-pattern>
   </filter-mapping>
   <filter-mapping>
-  	<filter-name>alFilter</filter-name>
+    <filter-name>alFilter</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+  	<filter-name>transFilter</filter-name>
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
+  <listener>
+  	<listener-class>vip.itellyou.ui.listener.SetOnlineListener</listener-class>
+  </listener>
 </web-app>

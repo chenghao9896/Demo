@@ -27,4 +27,8 @@ public interface BaseDao {
 	//	传入构成条件的数据：数据应该是实体类的属性值
 	//		一般会有有一些变化的值
 	public List findByCondition(BaseQueryModel queryModel) throws Exception;
+	
+	public Long findMaxId() throws Exception;
+	
+	public List findStringAll(String s) throws Exception;
 }

@@ -31,7 +31,9 @@ public class UserServiceImpl implements UserService {
 			//用户操作不当=>数据回显：自定义异常类
 			throw new RuleException("用户名不能为空!");
 		}
-		//...
+		if(user.getPwd().trim().length()<6){
+			throw new RuleException("密码长度不能少于6位!");
+		}
 		if(!user.getPwd().equals(user.getConfirmPwd())){
 			throw new RuleException("确认密码和密码必须一致!");
 		}
@@ -52,13 +54,6 @@ public class UserServiceImpl implements UserService {
 	}
 	@Override
 	public User verify(User user) throws Exception {
-		//完成登录
-		//1 构造查询模型对象
-		UserQueryModel qm = new UserQueryModel();
-		qm.setName(user.getName());
-		qm.setPwd(user.getPwd());
-		List list = userDao.findByCondition(qm);
-		user = (User)list.get(0);
 		if(user.getName()==null || user.getName().trim().length()==0){
 			// 当用户名为null或者长度为0时抛出异常用户名不能为空
 			//用户操作不当=>数据回显：自定义异常类
@@ -67,16 +62,23 @@ public class UserServiceImpl implements UserService {
 		if(user.getPwd()==null || user.getPwd().trim().length()==0){
 			throw new RuleException("密码不能为空!");
 		}
-		if(user.getOnline()==User.ONLINE){
-			throw new RuleException("用户已登录!");
-		}else {
-			if(list.size()==1){
+		//完成登录
+		//1 构造查询模型对象
+		UserQueryModel qm = new UserQueryModel();
+		qm.setName(user.getName());
+		qm.setPwd(Md5Class.stringToMd5(user.getPwd()));
+		List list = userDao.findByCondition(qm);
+		if(list!=null&&list.size()>0){
+			user = (User)list.get(0);
+			if(user.getOnline()==User.ONLINE){
+				throw new RuleException("用户已登录!");
+			}else {
 				user.setOnline(User.ONLINE);
 				userDao.update(user);
 				return user;	
-			}else{
-				throw new RuleException("用户名不存在或密码错误!");
-			}
+			} 
+		}else{
+			throw new RuleException("用户名不存在或密码错误!");
 		}
 		
 	}
@@ -84,6 +86,20 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User getUser(int id) throws Exception {
 		return (User)userDao.findOne(id);
+	}
+
+	@Override
+	public void setOnline(User user, boolean status) {
+		if(status){
+			user.setOnline(User.OFFLINE);
+		}else{
+			user.setOnline(User.ONLINE);
+		}
+		try {
+			userDao.update(user);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 }

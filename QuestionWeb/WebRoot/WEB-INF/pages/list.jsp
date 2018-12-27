@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*,vip.itellyou.pojo.User" pageEncoding="utf-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -14,13 +15,18 @@
 </div>
 <div id="navbar" class="wrap">
 	<div class="profile">
-		您好，${CurrentUser.name}
-		<span class="return"><a href="/vote/list">返回列表</a></span>
-		<span class="addnew"><a href="/vote/m/add">添加新投票</a></span>
-		<span class="modify"><a href="/vote/m/modify">维护</a></span>		
+		<c:if test="${CurrentUser==null}">
+			您好，请先<a href="${pageContext.request.contextPath}/login">登录</a>
+		</c:if>
+		<c:if test="${CurrentUser!=null}">
+			您好，${CurrentUser.name}/<a href="${pageContext.request.contextPath}/logout">退出</a>
+		</c:if>
+		<span class="return"><a href="${pageContext.request.contextPath}/list">返回列表</a></span>
+		<span class="addnew"><a href="${pageContext.request.contextPath}/m/add">添加新投票</a></span>
+		<span class="modify"><a href="${pageContext.request.contextPath}/m/modify">维护</a></span>	
 	</div>
 	<div class="search">
-		<form method="post" action="/vote/search">
+		<form method="post" action="${pageContext.request.contextPath}/search">
 			<input type="text" name="keywords" class="input-text" value=""/><input type="submit" name="submit" class="input-button" value="" />
 		</form>
 	</div>
@@ -30,22 +36,15 @@
 	<h2>投票列表</h2>
 	<ul class="list">
 	
-	
-		<li  class="odd" >
+	<c:forEach items="${subjectList}" var="subject" varStatus="status">
+		<li <c:if test="${status.index%2==0 }">class="odd" </c:if>>
 			<h4>				
-				<a href="/vote/m/vote?id=6">TEST Five</a>
+				<a href="${pageContext.request.contextPath}/m/vote?id=${subject.id}">${subject.title}</a>
 			</h4>
-			<div class="join"><a href="/vote/m/vote?id=6">我要参与</a></div>
-			<p class="info">共有 2个选项，已有 1个网友参与了投票。</p>
+			<div class="join"><a href="${pageContext.request.contextPath}/m/vote?id=${subject.id}">我要参与</a></div>
+			<p class="info">共有${fn:length(subject.options)}个选项，已有 ${subject.count}个网友参与了投票。</p>
 		</li>
-	
-		<li  >
-			<h4>				
-				<a href="/vote/m/vote?id=7">Test six</a>
-			</h4>
-			<div class="join"><a href="/vote/m/vote?id=7">我要参与</a></div>
-			<p class="info">共有 2个选项，已有 2个网友参与了投票。</p>
-		</li>
+	</c:forEach>
 	
 	</ul>
 </div>
